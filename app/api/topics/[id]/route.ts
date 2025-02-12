@@ -8,7 +8,7 @@ export async function PUT(
 ) {
   try {
     await connectMongoDB();
-    const { id } = context.params; // ✅ Correct way to extract params
+    const id = context.params.id; // Use context.params.id
 
     const {
       newTitle: title,
@@ -45,7 +45,7 @@ export async function GET(
 ) {
   try {
     await connectMongoDB();
-    const { id } = context.params; // ✅ Correct way to extract params
+    const id = context.params.id; // Use context.params.id
 
     const topic = await Topic.findById(id);
 
