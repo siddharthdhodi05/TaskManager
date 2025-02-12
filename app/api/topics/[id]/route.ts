@@ -4,11 +4,11 @@ import Topic from "@/models/topic";
 
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  context: { params: { id: string } }
 ) {
   try {
     await connectMongoDB();
-    const id = params.id; // Ensure params is awaited
+    const { id } = context.params; // ✅ Correct way to extract params
 
     const {
       newTitle: title,
@@ -16,7 +16,6 @@ export async function PUT(
       newDate: date,
     } = await request.json();
 
-    // Update the topic
     const updatedTopic = await Topic.findByIdAndUpdate(
       id,
       { title, description, date },
@@ -42,11 +41,11 @@ export async function PUT(
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  context: { params: { id: string } }
 ) {
   try {
     await connectMongoDB();
-    const id = params.id; // Ensure params is awaited
+    const { id } = context.params; // ✅ Correct way to extract params
 
     const topic = await Topic.findById(id);
 
